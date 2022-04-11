@@ -42,12 +42,31 @@ class ViewController: UIViewController {
         return blueView
     }()
     
-
-    let tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.layer.cornerRadius = 30
-        tableView.register(WordTableViewCell.self, forCellReuseIdentifier: WordTableViewCell.identifier)
-        return tableView
+    let flowLayout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.minimumInteritemSpacing = 8
+        layout.minimumLineSpacing = 8
+        layout.sectionInset = UIEdgeInsets(top: 24, left: 24, bottom: 24, right: 24)
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        return layout
+    }()
+    
+    let compLayout = UICollectionViewCompositionalLayout { sectionIndex, env in
+        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(0.5), heightDimension: .absolute(93)))
+        item.contentInsets.trailing = 8
+        item.contentInsets.bottom = 8
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(1000)), subitems: [item])
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 24, leading: 24, bottom: 24, trailing: 24)
+        return section
+    }
+    
+    lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: compLayout)
+        collectionView.register(WordCollectionViewCell.self, forCellWithReuseIdentifier: WordCollectionViewCell.identifier)
+        collectionView.layer.cornerRadius = 30
+        return collectionView
     }()
     
     override func viewDidLoad() {
@@ -108,18 +127,14 @@ class ViewController: UIViewController {
             blueView.heightAnchor.constraint(equalTo: blueView.widthAnchor, multiplier: 0.49)
         ])
         
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 100
-        tableView.separatorStyle = .none
-//        tableView.contentInset = UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0)
-        view.addSubview(tableView)
-        tableView.activate(constraints: [
-            tableView.topAnchor.constraint(equalTo: blueView.bottomAnchor, constant: 24),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        view.addSubview(collectionView)
+        collectionView.activate(constraints: [
+            collectionView.topAnchor.constraint(equalTo: blueView.bottomAnchor, constant: 24),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 }
@@ -134,53 +149,45 @@ extension ViewController: RandomWordViewDelegate {
 
 }
 
-extension ViewController: UITableViewDataSource {
+
+extension ViewController: UICollectionViewDataSource {
     
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return 2
-//    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return words.count
     }
     
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        var sectionTitle: String
-//        if section == 0 {
-//            sectionTitle = "Words"
-//        } else {
-//            sectionTitle = "Whatever"
-//        }
-//        return sectionTitle
-//    }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: WordTableViewCell.identifier, for: indexPath) as? WordTableViewCell else {
-            return UITableViewCell()
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WordCollectionViewCell.identifier, for: indexPath) as? WordCollectionViewCell else {
+            return UICollectionViewCell()
         }
-        
-        
         let word = words[indexPath.row]
-        //use content config
-//        var contentConfig = cell.defaultContentConfiguration()
-//        contentConfig.text = word.title
-//        contentConfig.secondaryText = word.definition
-//        cell.contentConfiguration = contentConfig
-        cell.update(with: word)
+        cell.configure(with: word)
         return cell
     }
-
+    
 }
 
-extension ViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let word = words[indexPath.row]
-        let wordDetailedView = WordDetailedView(word: word)
-        wordDetailedView.show(self.view)
-        tableView.deselectRow(at: indexPath, animated: true)
+extension ViewController: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        //return the size of the collection view cell
+        let numberOfItem: CGFloat = 2
+        let width = collectionView.bounds.size.width
+        let sectionSpacing: CGFloat = flowLayout.sectionInset.left
+        let itemSpacing: CGFloat = flowLayout.minimumInteritemSpacing
+        let availableSpacing = width - itemSpacing - sectionSpacing * 2
+        
+        return CGSize(width: floor(availableSpacing/numberOfItem), height: 93)
     }
+}
+
+extension ViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let word = words[indexPath.row]
+        navigationController?.pushViewController(WordDetailViewController(with: word), animated: true)
+    }
+    
 }
 
 extension UIView {
