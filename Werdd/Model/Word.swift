@@ -7,10 +7,9 @@
 
 import Foundation
 
-struct Word {
+struct Word: Decodable {
     
-    let title: String
-    let partOfSpeech: String
     let definition: String
+    let partOfSpeech: String
     
 }

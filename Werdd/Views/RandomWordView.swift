@@ -14,6 +14,12 @@ protocol RandomWordViewDelegate: AnyObject {
 class RandomWordView: UIView {
     
     weak var delegate: RandomWordViewDelegate?
+    
+    let spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView(style: .large)
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        return spinner
+    }()
         
     //word label
     let wordTitleLabel: UILabel = {
@@ -89,12 +95,17 @@ class RandomWordView: UIView {
     private func setupUI() {
         backgroundColor = UIColor(named: "randomWordViewBackgroundColor")
         layer.cornerRadius = 30
-        
+        addSubview(spinner)
         addSubview(vertStackView)
         vertStackView.activate(constraints: [
             vertStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
             vertStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             vertStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24)
+        ])
+        
+        spinner.activate(constraints: [
+            spinner.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
         
         if needRefreshButton {
@@ -112,10 +123,18 @@ class RandomWordView: UIView {
         
     }
     
-    func updateLabels(with word: Word) {
-        wordTitleLabel.text = word.title
-        partOfSpeechLabel.text = word.partOfSpeech
-        definitionLabel.text = word.definition
+    func startLoading() {
+        spinner.startAnimating()
+    }
+    
+    func stopLoading() {
+        spinner.stopAnimating()
+    }
+    
+    func updateLabels(with word: RandomWordResponse) {
+        wordTitleLabel.text = word.word
+        partOfSpeechLabel.text = word.results?[0].partOfSpeech
+        definitionLabel.text = word.results?[0].definition
     }
     
     @objc func refreshButtonTapped(_ sender: UIButton) {
