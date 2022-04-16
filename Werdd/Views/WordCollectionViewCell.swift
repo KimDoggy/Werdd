@@ -42,7 +42,9 @@ class WordCollectionViewCell: UICollectionViewCell {
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
-//        label.setContentHuggingPriority(.defaultLow, for: .vertical)
+//        label.backgroundColor = .red
+        label.layer.borderColor = UIColor.blue.cgColor
+        label.layer.borderWidth = 1
         return label
     }()
 
@@ -50,9 +52,7 @@ class WordCollectionViewCell: UICollectionViewCell {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .lastBaseline
-        
         stackView.spacing = 8
-//        stackView.setContentHuggingPriority(.defaultHigh, for: .vertical)
         return stackView
     }()
 
@@ -86,27 +86,16 @@ class WordCollectionViewCell: UICollectionViewCell {
         mainStackView.activate(constraints: [
             mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 14),
             mainStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 11),
-            mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -11),
-            mainStackView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -9)
+            mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -11)
         ])
         
     }
     
-    func configure(with word: Word) {
-        titleLabel.text = word.title
-        partOfSpeechLabel.text = word.partOfSpeech
-        definitionLabel.text = word.definition
-    }
+//    func configure(with word: Word) {
+//        titleLabel.text = word.title
+//        partOfSpeechLabel.text = word.partOfSpeech
+//        definitionLabel.text = word.definition
+//    }
     
 }
 
-
-//extension WordCollectionViewCell {
-//    override func systemLayoutSizeFitting(_ targetSize: CGSize, withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority, verticalFittingPriority: UILayoutPriority) -> CGSize {
-//        var targetSize = targetSize
-//        targetSize.height = CGFloat.greatestFiniteMagnitude
-//        
-//        let size = super.systemLayoutSizeFitting(targetSize, withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel)
-//        return size
-//    }
-//}

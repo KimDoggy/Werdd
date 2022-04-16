@@ -33,7 +33,7 @@ class WordDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationItem.title = word.title
+//        navigationItem.title = word.title
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     

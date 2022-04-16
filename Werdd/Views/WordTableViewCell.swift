@@ -102,11 +102,11 @@ class WordTableViewCell: UITableViewCell {
             mainView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0)
         ])
     }
-    
-    func update(with word: Word) {
-        titleLabel.text = word.title
-        partOfSpeechLabel.text = word.partOfSpeech
-        definitionLabel.text = word.definition
-    }
+//    
+//    func update(with word: Word) {
+//        titleLabel.text = word.title
+//        partOfSpeechLabel.text = word.partOfSpeech
+//        definitionLabel.text = word.definition
+//    }
 
 }

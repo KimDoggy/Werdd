@@ -20,6 +20,8 @@
 		3B8DC29627DC632400DA4947 /* Rubik-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B8DC29527DC632400DA4947 /* Rubik-Regular.ttf */; };
 		3B8DC29827DC642800DA4947 /* Rubik-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B8DC29727DC642800DA4947 /* Rubik-SemiBold.ttf */; };
 		3B97D24827E6558C003963A1 /* RandomWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B97D24727E6558C003963A1 /* RandomWordView.swift */; };
+		3B9C2C89280A095300B61786 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9C2C88280A095300B61786 /* NetworkManager.swift */; };
+		3B9C2C8D280A134B00B61786 /* RandomWordResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9C2C8C280A134B00B61786 /* RandomWordResponse.swift */; };
 		3BA7EBCB27EFEB2600A36AF0 /* WordDetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA7EBCA27EFEB2600A36AF0 /* WordDetailedView.swift */; };
 		3BCEB39927E5109500F0EB3A /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCEB39827E5109500F0EB3A /* Word.swift */; };
 		3BDDDACB27FA2F71008FB471 /* WordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDDDACA27FA2F71008FB471 /* WordTableViewCell.swift */; };
@@ -42,6 +44,8 @@
 		3B8DC29527DC632400DA4947 /* Rubik-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Regular.ttf"; sourceTree = "<group>"; };
 		3B8DC29727DC642800DA4947 /* Rubik-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-SemiBold.ttf"; sourceTree = "<group>"; };
 		3B97D24727E6558C003963A1 /* RandomWordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomWordView.swift; sourceTree = "<group>"; };
+		3B9C2C88280A095300B61786 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		3B9C2C8C280A134B00B61786 /* RandomWordResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomWordResponse.swift; sourceTree = "<group>"; };
 		3BA7EBCA27EFEB2600A36AF0 /* WordDetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordDetailedView.swift; sourceTree = "<group>"; };
 		3BCEB39827E5109500F0EB3A /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		3BDDDACA27FA2F71008FB471 /* WordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordTableViewCell.swift; sourceTree = "<group>"; };
@@ -78,6 +82,7 @@
 		3B8DC27D27DC4FDE00DA4947 /* Werdd */ = {
 			isa = PBXGroup;
 			children = (
+				3B9C2C87280A093400B61786 /* Managers */,
 				3BDE8BB12801E3DE0013623D /* ViewController */,
 				3BDDDAC927FA2EF7008FB471 /* Views */,
 				3BCEB39527E50D9200F0EB3A /* Model */,
@@ -103,10 +108,19 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		3B9C2C87280A093400B61786 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				3B9C2C88280A095300B61786 /* NetworkManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		3BCEB39527E50D9200F0EB3A /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				3BCEB39827E5109500F0EB3A /* Word.swift */,
+				3B9C2C8C280A134B00B61786 /* RandomWordResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -206,10 +220,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B9C2C89280A095300B61786 /* NetworkManager.swift in Sources */,
 				3B8DC28327DC4FDE00DA4947 /* ViewController.swift in Sources */,
 				3B1359742803818D00C61489 /* WordDetailViewController.swift in Sources */,
 				3BDDDACB27FA2F71008FB471 /* WordTableViewCell.swift in Sources */,
 				3B8DC27F27DC4FDE00DA4947 /* AppDelegate.swift in Sources */,
+				3B9C2C8D280A134B00B61786 /* RandomWordResponse.swift in Sources */,
 				3BDE8BB32801ECC00013623D /* WordCollectionViewCell.swift in Sources */,
 				3BCEB39927E5109500F0EB3A /* Word.swift in Sources */,
 				3BA7EBCB27EFEB2600A36AF0 /* WordDetailedView.swift in Sources */,
